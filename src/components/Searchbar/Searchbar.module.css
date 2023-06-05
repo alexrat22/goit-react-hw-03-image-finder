@@ -49,7 +49,7 @@
 .SearchFormInput {
   display: inline-block;
   width: 100%;
-
+  margin-left: 10px;
   font: inherit;
   font-size: 20px;
   border: none;
