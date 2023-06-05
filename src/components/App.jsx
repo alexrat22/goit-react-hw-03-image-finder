@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import { getPictures } from '../API/API';
+import { ToastContainer } from 'react-toastify';
+//import { getPictures } from '../API/API';
 import Searchbar from './Searchbar/Searchbar';
 import Modal from './Modal/Modal';
 
