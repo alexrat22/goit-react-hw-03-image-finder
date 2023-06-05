@@ -6,18 +6,22 @@ class App extends Component {
     showModal: false,
   };
 
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({ showModal: !showModal }));
+  openModal = () => {
+    this.setState({ showModal: true });
+  };
+
+  closeModal = () => {
+    this.setState({ showModal: false });
   };
 
   render() {
     const { showModal } = this.state;
     return (
       <div>
-        <button type="button" onClick={this.toggleModal}>
+        <button type="button" onClick={this.openModal}>
           Open Modal
         </button>
-        {showModal && <Modal />}
+        {showModal && <Modal onClose={this.closeModal} />}
       </div>
     );
   }
