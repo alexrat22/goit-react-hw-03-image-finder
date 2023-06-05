@@ -4,8 +4,8 @@ import css from './Modal.module.css';
 export default class Modal extends Component {
   render() {
     return (
-      <div className={css.overlay}>
-        <div className={css.modal}>
+      <div className={css.Overlay}>
+        <div className={css.Modal}>
           <img src="" alt="" />
         </div>
       </div>
