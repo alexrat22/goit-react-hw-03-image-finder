@@ -4,6 +4,7 @@ import { getPictures } from '../API/API';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
+import Loader from './Loader/Loader';
 
 const perPage = 12;
 
@@ -13,6 +14,7 @@ export default class App extends Component {
     images: null,
     page: 1,
     visibleLoadMore: false,
+    visibleLoader: false,
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -20,17 +22,20 @@ export default class App extends Component {
 
     if (prevState.imageName !== imageName || prevState.page !== page) {
       try {
+        this.setState({ visibleLoader: true });
+
         const { totalHits, hits } = await getPictures(imageName, page);
 
         if (totalHits === 0) {
           toast.error('Sorry, there are no images matching your search query.');
-          this.setState({ visibleLoadMore: false });
+          this.setState({ visibleLoadMore: false, visibleLoader: false });
           return;
         } else {
           this.setState(prevState => ({
             images: page === 1 ? hits : [...prevState.images, ...hits],
             visibleLoadMore: page * perPage < totalHits,
           }));
+          this.setState({ visibleLoader: false });
         }
       } catch (error) {
         toast.error(`${error}`);
@@ -55,6 +60,7 @@ export default class App extends Component {
         {this.state.visibleLoadMore && (
           <Button onCLick={this.onLoadMoreClick} />
         )}
+        {this.state.visibleLoader && <Loader />}
       </div>
     );
   }
