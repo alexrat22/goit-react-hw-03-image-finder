@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Component } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import css from './Searchbar.module.css';
@@ -30,7 +31,7 @@ export default class Searchbar extends Component {
 
   render() {
     return (
-      <header className={css.Searchbar}>
+      <header className={css.SearchBar}>
         <form className={css.SearchForm} onSubmit={this.onFormSubmit}>
           <button type="submit" className={css.SearchFormButton}>
             <span className={css.SearchFormButtonLabel}>Search</span>
@@ -50,3 +51,7 @@ export default class Searchbar extends Component {
     );
   }
 }
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};

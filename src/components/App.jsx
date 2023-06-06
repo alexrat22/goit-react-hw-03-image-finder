@@ -38,7 +38,7 @@ export default class App extends Component {
           this.setState({ visibleLoader: false });
         }
       } catch (error) {
-        toast.error(`${error}`);
+        toast.error(error);
       }
     }
   }
@@ -52,15 +52,14 @@ export default class App extends Component {
   };
 
   render() {
+    const { images, visibleLoadMore, visibleLoader } = this.state;
     return (
       <div>
         <ToastContainer autoClose={2500} />
         <Searchbar onSubmit={this.onFormSubmit} />
-        {this.state.images && <ImageGallery images={this.state.images} />}
-        {this.state.visibleLoadMore && (
-          <Button onCLick={this.onLoadMoreClick} />
-        )}
-        {this.state.visibleLoader && <Loader />}
+        {images && <ImageGallery images={images} />}
+        {visibleLoadMore && <Button onCLick={this.onLoadMoreClick} />}
+        {visibleLoader && <Loader />}
       </div>
     );
   }
