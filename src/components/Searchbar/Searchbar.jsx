@@ -17,7 +17,7 @@ export default class Searchbar extends Component {
     evt.preventDefault();
 
     if (imageName.trim() === '') {
-      toast.error('Enter image title');
+      toast.error('Enter correct search query');
       return;
     }
     this.props.onSubmit(imageName);
