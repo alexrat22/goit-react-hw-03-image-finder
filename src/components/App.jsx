@@ -5,11 +5,14 @@ import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 
+const perPage = 12;
+
 export default class App extends Component {
   state = {
     imageName: '',
     images: null,
     page: 1,
+    visibleLoadMore: false,
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -21,10 +24,12 @@ export default class App extends Component {
 
         if (totalHits === 0) {
           toast.error('Sorry, there are no images matching your search query.');
+          this.setState({ visibleLoadMore: false });
           return;
         } else {
           this.setState(prevState => ({
             images: page === 1 ? hits : [...prevState.images, ...hits],
+            visibleLoadMore: page * perPage < totalHits,
           }));
         }
       } catch (error) {
@@ -47,7 +52,9 @@ export default class App extends Component {
         <ToastContainer autoClose={2500} />
         <Searchbar onSubmit={this.onFormSubmit} />
         {this.state.images && <ImageGallery images={this.state.images} />}
-        <Button onCLick={this.onLoadMoreClick} />
+        {this.state.visibleLoadMore && (
+          <Button onCLick={this.onLoadMoreClick} />
+        )}
       </div>
     );
   }
