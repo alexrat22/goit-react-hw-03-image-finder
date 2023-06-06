@@ -23,10 +23,11 @@ export default class Modal extends Component {
   };
 
   render() {
+    const { url, alt } = this.props;
     return (
       <div className={css.Overlay} onClick={this.onOverlayClick}>
         <div className={css.Modal}>
-          <img src="" alt="" />
+          <img className={css.LargeUrl} src={url} alt={alt} />
         </div>
       </div>
     );
