@@ -3,6 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { getPictures } from '../API/API';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
+import Button from './Button/Button';
 
 export default class App extends Component {
   state = {
@@ -14,7 +15,7 @@ export default class App extends Component {
   async componentDidUpdate(prevProps, prevState) {
     const { imageName, page } = this.state;
 
-    if (prevState.imageName !== imageName) {
+    if (prevState.imageName !== imageName || prevState.page !== page) {
       try {
         const { totalHits, hits } = await getPictures(imageName, page);
 
@@ -33,7 +34,11 @@ export default class App extends Component {
   }
 
   onFormSubmit = imageName => {
-    this.setState({ imageName });
+    this.setState({ imageName, page: 1, images: null });
+  };
+
+  onLoadMoreClick = () => {
+    this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
   render() {
@@ -42,6 +47,7 @@ export default class App extends Component {
         <ToastContainer autoClose={2500} />
         <Searchbar onSubmit={this.onFormSubmit} />
         {this.state.images && <ImageGallery images={this.state.images} />}
+        <Button onCLick={this.onLoadMoreClick} />
       </div>
     );
   }
